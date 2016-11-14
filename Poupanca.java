@@ -1,3 +1,5 @@
+/** Alunos : Jéferson Bueno e xxxxxxxxxxx Trabalho GB Lab 1 Turma: 53 2016/2 */
+
 public class Poupanca{
     private int numero;
     private String cliente; // nome do cliente
@@ -10,7 +12,7 @@ public class Poupanca{
     }
 
     public void deposita(double valor){
-        this.saldoLivre = this.saldoLivre +valor;
+        this.saldoLivre = this.saldoLivre + valor;
     }
 
     public boolean retira(double valor){
