@@ -8,6 +8,33 @@ public class Program
         PoupancaSaude ps = new PoupancaSaude(123, "Jéferson");
         Poupanca p = new Poupanca(123, "Jéferson");
 
-        System.out.println(d.toString());
+        //System.out.println(d.toString());
+
+        System.out.println("teste ordenacao");
+        testeOrganiza();
+    }
+
+    public static void testeOrganiza()
+    {
+        /*Dependente[] dep = { null,
+                             new Dependente("Joaquim", 'o'),
+                             null,
+                             new Dependente("Jeferson", 'o'),
+                             new Dependente("Alice", 'o'),
+                             null,
+                             null
+
+                            };
+
+
+        PoupancaSaude.ordenaDependentes(dep);
+
+        for(Dependente d : dep)
+        {
+            if(d == null)
+                System.out.println("null");
+            else
+                System.out.println(d.getNome());
+        }*/
     }
 }

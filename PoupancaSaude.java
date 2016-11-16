@@ -59,7 +59,7 @@ public class PoupancaSaude extends Poupanca
         double rendimento = this.saldoVinculado * taxa;
         this.saldoVinculado += rendimento;
 
-        super.creditaRendimento(taxa)
+        return super.creditaRendimento(taxa);
     }
 
     public boolean insereDependente(Dependente dependente)
@@ -74,5 +74,97 @@ public class PoupancaSaude extends Poupanca
         }
 
         return false;
+    }
+
+    public int buscaDependente(String nome)
+    {
+        for(int i = 0; i < dependentes.length; i++)
+        {
+            if(dependentes[i] != null && dependentes[i].getNome().equalsIgnoreCase(nome))
+                return i;
+        }
+
+        return 99;
+    }
+
+    public Dependente retiraDependente(String nome)
+    {
+        int indice = buscaDependente(nome);
+
+        if(indice != 99)
+        {
+            Dependente retorno = dependentes[indice];
+            dependentes[indice] = null;
+            return retorno;
+        }
+
+        return null;
+    }
+
+    public void retiraSaude(double valor)
+    {
+        //TODO: Fazer essa porcaria
+        if(valor > this.saldoVinculado)
+        {
+
+        }
+    }
+
+    public void amortizaFinanciamento()
+    {
+        //todo: fazer
+    }
+
+    public void ordenaDependentes()
+    {
+        boolean troca = true;
+
+        while(troca)
+        {
+            troca = false;
+
+            for(int i = 0; i < dependentes.length - 1; i++)
+            {
+                if(dependentes[i + 1] == null)
+                    continue;
+
+                if(dependentes[i] == null)
+                {
+                    dependentes[i] = dependentes[i + 1];
+                    dependentes[i + 1] = null;
+                    troca = true;
+                    continue;
+                }
+
+                if(dependentes[i].getNome().compareTo(dependentes[i + 1].getNome()) > 0)
+                {
+                    Dependente aux = dependentes[i];
+                    dependentes[i] = dependentes[i + 1];
+                    dependentes[i + 1] = aux;
+                    troca = true;
+                }
+            }
+        }
+    }
+
+    @Override
+    public String toString()
+    {
+        String ret = String.format("Saldo vinculado: %s Saldo financiado: %s", saldoVinculado, saldoFinanciado);
+
+        ret += super.toString();
+
+        ordenaDependentes();
+
+        for(Dependente dep : dependentes)
+        {
+            if(dep == null)
+                continue;
+
+            ret += "\nDependentes:\n";
+            ret += String.format("Nome: %s Parentesco: %s", dep.getNome(), dep.traduzParentesco());
+        }
+
+        return ret;
     }
 }

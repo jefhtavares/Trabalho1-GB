@@ -11,6 +11,11 @@ public class Dependente
         setParentesco(parentesco);
     }
 
+    public String getNome()
+    {
+        return nome;
+    }
+
     public void setParentesco(char parentesco)
     {
         parentesco = Character.toLowerCase(parentesco);
