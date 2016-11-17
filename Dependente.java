@@ -1,4 +1,4 @@
-/** Alunos : Jéferson Bueno e xxxxxxxxxxx Trabalho GB Lab 1 Turma: 53 2016/2 */
+/** Alunos : Jéferson Bueno e Sol Orion Trabalho GB Lab 1 Turma: 53 2016/2 */
 
 public class Dependente
 {
@@ -20,7 +20,7 @@ public class Dependente
     {
         parentesco = Character.toLowerCase(parentesco);
 
-        if(parentesco != 'c' || parentesco != 'f' || parentesco != 'p')
+        if(parentesco != 'c' && parentesco != 'f' && parentesco != 'p')
             parentesco = 'o';
 
         this.parentesco = parentesco;
@@ -29,13 +29,13 @@ public class Dependente
     public String traduzParentesco()
     {
         if(parentesco == 'c')
-            return "Cônjuge";
+            return "Conjuge";
 
         if(parentesco == 'f')
             return "Filho(a)";
 
         if(parentesco == 'p')
-            return "progenitor (pais, avós)";
+            return "progenitor (pais, avos)";
 
         return "outros";
     }
@@ -45,6 +45,4 @@ public class Dependente
     {
         return String.format("Nome: %s - Parentesco: %s", this.nome, traduzParentesco());
     }
-
-    //Todo: gets
 }

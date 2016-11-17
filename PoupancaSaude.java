@@ -1,4 +1,4 @@
-/** Alunos : Jéferson Bueno e xxxxxxxxxxx Trabalho GB Lab 1 Turma: 53 2016/2 */
+/** Alunos : Jéferson Bueno e Sol Orion Trabalho GB Lab 1 Turma: 53 2016/2 */
 
 public class PoupancaSaude extends Poupanca
 {
@@ -65,11 +65,11 @@ public class PoupancaSaude extends Poupanca
 
     public boolean insereDependente(Dependente dependente)
     {
-        for(Dependente dep : this.dependentes)
+        for(int i = 0; i < this.dependentes.length; i++)
         {
-            if(dep == null)
+            if(this.dependentes[i] == null)
             {
-                dep = dependente;
+                this.dependentes[i] = dependente;
                 return true;
             }
         }
@@ -102,18 +102,67 @@ public class PoupancaSaude extends Poupanca
         return null;
     }
 
-    public void retiraSaude(double valor)
+    public double retiraSaude(double valor)
     {
-        //TODO: Fazer essa porcaria
         if(valor > this.saldoVinculado)
         {
+            double valorRestante = valor - saldoVinculado;
+            System.out.println(String.format("Valor restante da despesa R$ %s | Saldo livre R$ %s", valorRestante, getSaldoLivre()));
+            
+            double valorSaldoLivre;
 
+            while(true)
+            {    
+                valorSaldoLivre = Teclado.leDouble("Quanto você quer usar do saldo livre?");         
+                if(valorSaldoLivre > getSaldoLivre() || valorSaldoLivre > valor)
+                    System.out.println("Valor muito grande, redigite!");
+                else
+                    break;
+            }
+
+            super.retira(valorSaldoLivre);
+
+            //Financiamento
+            if(valorSaldoLivre < valorRestante)
+            {
+                double restante = valorRestante - valorSaldoLivre;
+                double percJuros;
+
+                if(saldoFinanciado == 0)
+                    percJuros = 0.05;
+                else if (saldoFinanciado <= 500)
+                    percJuros = 0.1;
+                else
+                    percJuros = 0.15;
+                
+                double valorFinanciamentoComJuros = restante + (restante * percJuros);
+
+                this.saldoFinanciado += valorFinanciamentoComJuros;
+                return valorFinanciamentoComJuros;
+            }
+            
+            return 0;
         }
+
+        saldoVinculado -= valor;
+        return 0;
     }
 
-    public void amortizaFinanciamento()
+    public double amortizaFinanciamento(double valor)
     {
-        //todo: fazer
+        if(valor > this.saldoFinanciado)
+            return 0;
+
+        this.saldoFinanciado -= valor;
+
+        if(this.saldoFinanciado == 0){
+            double valorDeposito = valor + (valor * 0.05); 
+            deposita(valorDeposito);
+
+            return valorDeposito;
+        }
+
+        return 0;
     }
 
     public void ordenaDependentes()
@@ -151,19 +200,22 @@ public class PoupancaSaude extends Poupanca
     @Override
     public String toString()
     {
-        String ret = String.format("Saldo vinculado: %s Saldo financiado: %s", saldoVinculado, saldoFinanciado);
-
-        ret += super.toString();
+        String ret = super.toString();
+        ret += String.format(" | Saldo vinculado: %s | Saldo financiado: %s ", saldoVinculado, saldoFinanciado);
 
         ordenaDependentes();
+
+        if(contaDependentes() <= 0)
+            return ret;
+
+        ret += "\n * Dependentes: * \n";
 
         for(Dependente dep : dependentes)
         {
             if(dep == null)
                 continue;
 
-            ret += "\nDependentes:\n";
-            ret += String.format("Nome: %s Parentesco: %s", dep.getNome(), dep.traduzParentesco());
+            ret += String.format("Nome: %s Parentesco: %s\n", dep.getNome(), dep.traduzParentesco());
         }
 
         return ret;

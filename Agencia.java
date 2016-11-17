@@ -1,3 +1,5 @@
+/** Alunos : Jéferson Bueno e Sol Orion Trabalho GB Lab 1 Turma: 53 2016/2 */
+
 public class Agencia
 {
     private Poupanca[] poupancas;
@@ -30,11 +32,15 @@ public class Agencia
             PoupancaSaude poupancaSaude = (PoupancaSaude)poupanca;
 
             char resposta;
-            do
+
+            while(true)
             {
+                if(poupancaSaude.contaDependentes() == poupancaSaude.maxDependentes)
+                    break;
+
                 resposta = Teclado.leChar("Deseja inserir um dependente (S/N)? ");
 
-                if(resposta == 'N' || resposta == 'n' || poupancaSaude.contaDependentes() == poupancaSaude.maxDependentes)
+                if(resposta == 'N' || resposta == 'n')
                     break;
 
                 String nomeDep = Teclado.leString("Digite o nome do dependente: ");
@@ -43,7 +49,8 @@ public class Agencia
                 poupancaSaude.insereDependente(new Dependente(nomeDep, parentesco));
                 poupancaSaude.contaDependentes();
             }
-            while(resposta == 'S' || resposta == 's');
+
+            poupancas[qtdPoupancas] = poupancaSaude;
         }
 
         qtdPoupancas += 1;
@@ -136,14 +143,106 @@ public class Agencia
                         break;
                     }
 
-                    double valor = Teclado.leDouble("Entre com o valor do retirada: ");
-                    if(!poupancas[index].retira(valor))
-                        System.out.println("Saldo insuficiente!");
+                    if(!(poupancas[index] instanceof PoupancaSaude)){
+                        System.out.println("Nao e poupanca saude");
+                    }
+
+                    double valor = Teclado.leDouble("Entre com o valor da retirada: ");
+                    double retorno = ((PoupancaSaude)poupancas[index]).retiraSaude(valor);
+
+                    String msg = retorno == 0 ? "Nao houve financiamento" : String.format("Valor financiado: R$ %s", retorno);
+
+                    System.out.println(msg);
+                    break;
+                }
+                case 5:
+                {
+                    int index = buscaConta(Teclado.leInt("Digite o numero da conta: "));
+
+                    if(index == -1)
+                    {
+                        System.out.println("Conta inexistente");
+                        break;
+                    }
+
+                    if(!(poupancas[index] instanceof PoupancaSaude)){
+                        System.out.println("Tipo de conta não aceita esta operacao");
+                    }
+
+                    double valor = Teclado.leDouble("Digite o valor a ser amortizado");
+                    double retorno = ((PoupancaSaude)poupancas[index]).amortizaFinanciamento(valor);
+
+                    //String msg = 
 
                     break;
                 }
+                case 6:
+                {
+                    int index = buscaConta(Teclado.leInt("Digite o numero da conta: "));
+
+                    if(index == -1)
+                    {
+                        System.out.println("Conta inexistente");
+                        break;
+                    }
+
+                    String msg = (poupancas[index] instanceof PoupancaSaude) ? ((PoupancaSaude)poupancas[index]).toString() : poupancas[index].toString();
+                    System.out.println(msg);
+
+                    break;
+                }
+                case 8:
+                {
+                    int index = buscaConta(Teclado.leInt("Digite o numero da conta: "));
+
+                    if(index == -1)
+                    {
+                        System.out.println("Conta inexistente");
+                        break;
+                    }
+
+                    if(!(poupancas[index] instanceof PoupancaSaude)){
+                        System.out.println("Nao e poupanca saude");
+                        break;
+                    }
+
+                    PoupancaSaude poupancaSaude = (PoupancaSaude)poupancas[index];
+
+                    if(poupancaSaude.contaDependentes() == poupancaSaude.maxDependentes){
+                        System.out.println("Essa conta nao admite mais dependentes");
+                        break;
+                    }
+
+                    String nomeDep = Teclado.leString("Digite o nome do dependente: ");
+                    char parentesco = Teclado.leChar("Digite o parentesco do dependente (c - conjugue, f - filho, p - progenitor, o - outro): ");
+
+                    poupancaSaude.insereDependente(new Dependente(nomeDep, parentesco));
+
+                    break;
+                }
+                case 9:
+                {
+                    int index = buscaConta(Teclado.leInt("Digite o numero da conta: "));
+
+                    if(index == -1)
+                    {
+                        System.out.println("Conta inexistente");
+                        break;
+                    }
+
+                    if(!(poupancas[index] instanceof PoupancaSaude)){
+                        System.out.println("Nao e poupanca saude");
+                        break;
+                    }
+
+                    String nomeDependente = Teclado.leString("Digite o nome do dependente a ser removido: ");
+
+                    Dependente retorno = ((PoupancaSaude)poupancas[index]).retiraDependente(nomeDependente);
+                    String msg = retorno == null ? "Nao existe dependente com este nome" : String.format("%s removido da lista de dependentes", nomeDependente);
+                    break;
+                }
                 case 10:
-                    System.out.println("Tchau!!!");
+                    System.out.println("\n\t**Tchau**");
                     break loop;
                 default:
                     break;

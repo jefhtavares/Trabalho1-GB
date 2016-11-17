@@ -1,3 +1,5 @@
+/** Alunos : Jéferson Bueno e Sol Orion Trabalho GB Lab 1 Turma: 53 2016/2 */
+
 import java.io.*;
 
 public class Teclado
