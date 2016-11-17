@@ -91,6 +91,8 @@ public class Agencia
             {
                 case 1:
                 {
+                    System.out.println("\t** Abrir conta **");
+
                     int retorno = abreConta();
 
                     String msg;
@@ -104,6 +106,8 @@ public class Agencia
                 }
                 case 2:
                 {
+                    System.out.println("\t** Fazer deposito **");
+
                     int index = buscaConta(Teclado.leInt("Digite o numero da conta: "));
 
                     if(index == -1)
@@ -119,6 +123,8 @@ public class Agencia
                 }
                 case 3:
                 {
+                    System.out.println("\t** Fazer retirada **");
+
                     int index = buscaConta(Teclado.leInt("Digite o numero da conta: "));
 
                     if(index == -1)
@@ -135,6 +141,8 @@ public class Agencia
                 }
                 case 4:
                 {
+                    System.out.println("\t** Fazer retirada para saude **");
+
                     int index = buscaConta(Teclado.leInt("Digite o numero da conta: "));
 
                     if(index == -1)
@@ -145,6 +153,7 @@ public class Agencia
 
                     if(!(poupancas[index] instanceof PoupancaSaude)){
                         System.out.println("Nao e poupanca saude");
+                        break;
                     }
 
                     double valor = Teclado.leDouble("Entre com o valor da retirada: ");
@@ -157,6 +166,8 @@ public class Agencia
                 }
                 case 5:
                 {
+                    System.out.println("\t** Amortizar financiamento **");
+
                     int index = buscaConta(Teclado.leInt("Digite o numero da conta: "));
 
                     if(index == -1)
@@ -166,18 +177,22 @@ public class Agencia
                     }
 
                     if(!(poupancas[index] instanceof PoupancaSaude)){
-                        System.out.println("Tipo de conta não aceita esta operacao");
+                        System.out.println("Tipo de conta nao aceita esta operacao");
+                        break;
                     }
 
                     double valor = Teclado.leDouble("Digite o valor a ser amortizado");
                     double retorno = ((PoupancaSaude)poupancas[index]).amortizaFinanciamento(valor);
 
-                    //String msg = 
+                    if(retorno > 0)
+                        System.out.println(String.format("Ganhou desconto-depósito de R$ %s", retorno));
 
                     break;
                 }
                 case 6:
                 {
+                    System.out.println("\t** Emitir extrato **");
+
                     int index = buscaConta(Teclado.leInt("Digite o numero da conta: "));
 
                     if(index == -1)
@@ -191,8 +206,26 @@ public class Agencia
 
                     break;
                 }
+                case 7:
+                {
+                    System.out.println("\t** Creditar rendimentos **");
+
+                    double taxa = Teclado.leDouble("Entre com a taxa de rendimento");
+                    double totalRendimento = 0;
+
+                    for(Poupanca poupanca : this.poupancas)
+                    {
+                        if(poupanca != null)
+                            totalRendimento += poupanca.creditaRendimento(taxa);
+                    }
+
+                    System.out.println(String.format("Total creditado em todas as contas R$: %s", totalRendimento));
+                    break;
+                }
                 case 8:
                 {
+                    System.out.println("\t** Inserir dependente **");
+
                     int index = buscaConta(Teclado.leInt("Digite o numero da conta: "));
 
                     if(index == -1)
@@ -222,6 +255,8 @@ public class Agencia
                 }
                 case 9:
                 {
+                    System.out.println("\t** Remover dependente **");
+
                     int index = buscaConta(Teclado.leInt("Digite o numero da conta: "));
 
                     if(index == -1)

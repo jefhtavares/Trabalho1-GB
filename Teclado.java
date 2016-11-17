@@ -4,27 +4,28 @@ import java.io.*;
 
 public class Teclado
 {
-     private static InputStreamReader i = new InputStreamReader (System.in);
-     private static BufferedReader d = new BufferedReader(i);
+    private static InputStreamReader i = new InputStreamReader (System.in);
+    private static BufferedReader d = new BufferedReader(i);
 
-     public static int leInt ()
-     {
-          System.out.print('\b');  //para abrir saida
-         int a = 0;
-         try
-         {
-             String s = d.readLine();
-             a = Integer.parseInt(s);
-         }
-         catch (IOException e)
-         {
-             System.out.println ("Erro de I/O: " + e);
-         }
-         catch (NumberFormatException e)
-         {
-             System.out.println ("o valor digitado deve ser inteiro: "+e );
-         }
-         return (a);
+    public static int leInt ()
+    {
+        System.out.print('\b');  //para abrir saida
+        int a = 0;
+        try
+        {
+            String s = d.readLine();
+            a = Integer.parseInt(s);
+        }
+        catch (IOException e)
+        {
+            System.out.println ("Erro de I/O: " + e);
+        }
+        catch (NumberFormatException e)
+        {
+            System.out.println ("o valor digitado deve ser inteiro: "+e );
+        }
+        
+        return (a);
      }
 
      public static int leInt (String msg)

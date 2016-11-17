@@ -215,7 +215,7 @@ public class PoupancaSaude extends Poupanca
             if(dep == null)
                 continue;
 
-            ret += String.format("Nome: %s Parentesco: %s\n", dep.getNome(), dep.traduzParentesco());
+            ret += dep.toString();
         }
 
         return ret;
