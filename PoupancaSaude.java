@@ -5,11 +5,12 @@ public class PoupancaSaude extends Poupanca
     private double saldoVinculado;
     private double saldoFinanciado;
     private Dependente[] dependentes;
+    public static final int maxDependentes = 5;
 
     public PoupancaSaude(int numConta, String nomeCliente)
     {
         super(numConta, nomeCliente);
-        dependentes = new Dependente[5];
+        dependentes = new Dependente[maxDependentes];
     }
 
     public int contaDependentes()

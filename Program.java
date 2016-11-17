@@ -4,14 +4,9 @@ public class Program
 {
     public static void main(String args[])
     {
-        Dependente d = new Dependente("Joaquim", 'v');
-        PoupancaSaude ps = new PoupancaSaude(123, "Jéferson");
-        Poupanca p = new Poupanca(123, "Jéferson");
+        Agencia agencia = new Agencia(45);
 
-        //System.out.println(d.toString());
-
-        System.out.println("teste ordenacao");
-        testeOrganiza();
+        agencia.menuDeTransacoes();
     }
 
     public static void testeOrganiza()
