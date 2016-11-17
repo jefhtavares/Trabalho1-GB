@@ -210,13 +210,13 @@ public class Agencia
                 {
                     System.out.println("\t** Creditar rendimentos **");
 
-                    double taxa = Teclado.leDouble("Entre com a taxa de rendimento");
+                    double perc = Teclado.leDouble("Entre com o PERCENTUAL de rendimento");
                     double totalRendimento = 0;
 
                     for(Poupanca poupanca : this.poupancas)
                     {
                         if(poupanca != null)
-                            totalRendimento += poupanca.creditaRendimento(taxa);
+                            totalRendimento += poupanca.creditaRendimento(perc / 100);
                     }
 
                     System.out.println(String.format("Total creditado em todas as contas R$: %s", totalRendimento));

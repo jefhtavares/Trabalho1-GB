@@ -208,7 +208,7 @@ public class PoupancaSaude extends Poupanca
         if(contaDependentes() <= 0)
             return ret;
 
-        ret += "\n * Dependentes: * \n";
+        ret += "\nDependentes:\n";
 
         for(Dependente dep : dependentes)
         {
